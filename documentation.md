@@ -22,3 +22,123 @@ Module 14: Redux Toolkit
 -kreiramo dispatch varijablu cija je vrijednost jednaka useDispatch() funkciji
 -importujemo useSelector React hook
 -kreiramo varijablu username cija je vrijednost jednaka useSelector() funkciji
+
+
+Module 15: Firebase project
+-npm i react-router-dom
+-u App15.tsx komponentu importujemo BrowserRouter as Router, Routes, Route
+-kreiramo folder pages
+-u pages folderu kreiramo tsx komponente
+-u App15 funkciji dodajemo Router, Routes, Route
+-Route komponenti dodajemo path i element props
+-kreiramo Navbar.tsx komponentu
+-u App15.tsx komponentu importujemo Navbar.tsx komponentu
+-kreiramo Firebase projekt koji ce sluziti za backend
+-u terminalu instaliramo firebase pakete npm i firebase
+-kreiramo config folder
+-u config folderu kreiramo firebase.ts fajl
+-u firebase.ts fajlu kopiramo kod sa Firebase projekta
+-na Firebase kliknemo autentifikaciju
+-odaberemo Google autentifikaciju i kliknemo save
+-u firebase.ts fajl importujemo getAuth, GoogleAuthProvider
+-kreiramo auth varijablu
+-kreiramo provider varijablu
+-u login.tsx komponenti instaliramo pakete za Google button komponentu
+-importujemo GoogleButton komponentu
+-u login.tsx komponentu importujemo auth, provider
+-kreiramo signInWithGoogle funkciju
+-importujemo signInWithPopup funkciju iz firebase/auth
+-unutar signInWithGoogle funkcije dodajemo signInWithPopup funkciju
+-u signInWithGoogle funkciji kreiramo result varijablu
+-u login.tsx komponentu importujemo useNavigate React hook
+-kreiramo navigate varijablu
+-u Navbar.tsx komponenti importujemo auth varijablu
+-kreiramo div element i unutar njega p element
+-unutar p elementa dinamicki predstavljamo trenutnog korisnika
+-kreiramo img element sa src i alt atributima
+-u src atributu dinamicki prikazujemo sliku korisnika
+-u terminalu instaliramo npm i react-firebase-hooks
+-u Navbar.tsx komponenti importujemo useAuthState React Firebase hook
+-kreiramo const [user] = useAuthState(auth);  
+-u Navbar.tsx komponenti kreiramo signUserOut funkciju
+-importujemo signOut funkciju iz firebase/auth
+-u signUserOut funkciju dodajemo signOut(auth);
+-dodajemo uslov {user && ( ... )}
+-kreiramo Firebase bazu podataka
+-kreiramo posts kolekciju
+-u Navbar.tsx komponenti dodajemo uslov {!user ? (...) : (...)}
+-u pages folderu kreiramo create-post.tsx komponentu
+-u pages folderu kreiramo form.tsx komponentu
+-u create-post.tsx komponentu importujemo create-form.tsx komponentu
+-u terminalu instaliramo npm i react-hook-form, yup @hookform/resolvers
+-u create-form.tsx importujemo useForm React hook i yup
+-kreiramo varijablu schema
+-importujemo yupResolver
+-kreiramo const { ... } = useForm({ ... })
+-input elementima dodajemo  {...register(' ')}
+-form elementu dodajemo onSubmit dogadaj i proslijedujemo vrijednost funkcije handleSubmit(onCreatePost)
+-kreiramo interface CreateFormData { ... }
+-ispod input elementa kreiramo p elemente koji ce prikazivati error
+-u firebase.ts fajl importujemo getFirestore funkciju
+-kreiramo varijablu db
+-u create-form.tsx komponentu importujemo addDoc i collection
+-importujemo varijablu db
+-kreiramo postsRef varijablu
+-u funkciji onCreatePost dodajemo addDoc() funkciju
+-addDoc() funkcija ima dva parametra, prvi je postsRef varijablu a drugi konfiguracijski objekt
+-importujemo user i useAuthState React hook
+-kreiramo [user] = useAuthState(auth)
+-u create-form.tsx komponentu importujemo useNavigate React hook
+-kreiramo navigate varijablu
+-u funkciji onCreatePost dodajemo navigate varijablu
+-u main.tsx komponentu importujemo getDocs, collection
+-importujemo db
+-u main.tsx komponenti kreiramo postsRef varijablu
+-kreiramo const [postsList, setPostsList] = useState(null)
+-kreiramo getPosts funkciju
+-u getPosts funkciju dodajemo setPostsList funkciju
+-u main.tsx komponenti kreiramo interface Post
+-importujemo useEffect React hook
+-unutar useEffect callback funkcije dodajemo getPosts funkciju
+-u return izjavi dodajemo postsList?.map metodu
+-u pages folderu kreiramo post.tsx komponentu
+-unutar postsList?.map metode dodajemo main.tsx komponentu
+-u post.tsx komponenti kreiramo interface Props
+-u Post funkciji kreiramo const {post} = props
+-instaliramo u terminalu npm i react-icons
+-na firebase projektu kreiramo novu kolekciju likes
+-u post.tsx komponenti kreiramo likesRef varijablu
+-kreiramo async funkciju addLike
+-kreiramo const [user] = useAuthState(auth)
+-button elementu dodajemo onClick dogadaj kojem proslijedujemo addLike funkciju
+-u post.tsx komponentu importujemo query funkciju
+-kreiramo likesDoc varijblu cija je vrijednost jednaka query funkciji
+-kreiramo getLikes funkciju i unutar te funkcije dodajemo getDocs funkciju sa argumentom likesDoc
+-u post.tsx komponentu kreiramo useEffect React hook
+-u useEffect React hook funkciji, unutar callback funkcije dodajemo getLikes() funkciju
+-kreiramo const [likeAmount, setLikeAmount] = useState<number | null>(null)
+-u getLikes funkciju dodajemo setLikeAmount(data.docs.length)
+-u return izjavi dodajemo uslov prikazivanja lajkova {likeAmount && <p>Likes : {likeAmount}</p>}
+-kreiramo interface Like
+-uredujemo useState React hook const [likes, setLikes] = useState<Like[] | null>(null)
+-u return izjavi sada dodajemo uslov {likes && <p>Likes : {likes?.length}</p>}
+-kreiramo hasUserLiked varijablu cija je vrijednost jenaka rezultatu likes?.find((like) => { ... }) metodi
+-u button elementu dodajemo uslov hasUserLiked
+-dodajemo if uslov if (user) { ... }
+-u addLike funkciju dodajemo try - catch blokove koda
+-kreiramo removeLike funkciju
+-u removeLike funkciji kreiramo likeToDeleteQuery varijablu
+-kreiramo likeToDeleteData varijablu
+-kreiramo likeToDelete varijablu
+-u post.jsx komponenti button elementu sa dogadaje click dodajemo uslov hasUserLiked
+-kreiramo likeId varijablu
+
+
+Firebase Hosting
+-na Firebase konzoli kliknemo Hosting opciju
+-u terminalu instaliramo npm install -g firebase-tools
+-u terminal ukucamo firebase login i firebase init
+-kad zavrsimo sve korake u terminal ukucamo firebase deploy
+-u terminal ukusamo npm run build
+-u terminal ukucamo firebase deploy
+https://reactjs-course-pt-yt.web.app/
